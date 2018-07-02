@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
 @import url('https://fonts.googleapis.com/css?family=Ovo');
 
+@mixin breakpoint ($value) {
+  @if $value == 'phone' {
+    @media only screen and (min-width: 120px) and (max-width: 767px) { @content; }
+  } @else if $value == 'tablet' {
+    @media only screen and (min-width: 768px) and (max-width: 1024px) { @content; }
+  } @else if $value == 'touch' {
+    @media only screen and (min-width: 120px) and (max-width: 1024px) { @content; }
+  } @else if $value == 'desktop' {
+    @media only screen and (min-width: 1025px) { @content; }
+  } @else {
+    @media only screen and (max-width: $value) { @content; }
+  }
+}
+
+
 a {
   color: black;
   text-decoration: none;
@@ -41,6 +56,23 @@ body{
   text-align: center;
   padding-top: 1rem;
   display:block; /* old v browsers  */
+  position: relative;
+  /* Header social icon */
+  .header_social_icon{
+    position: absolute;
+    margin: -13rem 0 0 77rem;
+    ul{
+      max-width: 100%;
+      li{
+        font-size: 1.4rem;
+        display: inline-block;
+        margin-right:2rem;
+      }
+    }
+    a{
+      color: #7b7b7b;
+    }
+  }
   img {
     border-radius: 3rem;
     max-height: 50%;
@@ -48,22 +80,7 @@ body{
   }
 }
 
-/* Header social icon */
-.header_social_icon{
-  position: absolute;
-  right: 11rem;
-  top: 3rem;
-  ul{
-    li{
-      font-size: 2rem;
-      display: inline;
-      margin-right:2rem;
-      }
-    }
-  a{
-    color: #7b7b7b;
-  }
-}
+
 
 /* Navigation Menu */
 * {
@@ -92,7 +109,6 @@ body{
   height: 40px;
   margin: 50px auto;
   padding: 0;
-  width: 960px;
   ul {
     list-style: none;
     padding: 0;
@@ -109,7 +125,6 @@ body{
     }
     clear: left;
     position: relative;
-    right: 50%;
     height: 40px;
     float: right;
     text-align: center;
@@ -117,19 +132,21 @@ body{
     text-transform: uppercase;
 
     .fa-globe {
-      margin-right: 0.1em;
+      margin-right: 0.1rem;
     }
 
     .fa-user {
-      margin-right: 0.3em;
+      margin-right: 0.3rem;
     }
 
     .fa-picture-o {
-      margin-right: 0.3em;
+      margin-right: 0.3rem;
+    }
+    .fa-home{
+      margin-right: 0.3rem;
     }
     li {
       position: relative;
-      left: 50%;
       float: left;
       height: 39px;
       font-size: 15px;
@@ -296,7 +313,8 @@ body{
 .top_blog_content{
   position: relative;
   margin: 0 auto 0 auto;
-  max-width: 978px;.top_blog{
+  max-width: 978px;
+  .top_blog{
   display: inline-block;
   .view_blog {
     margin: 10px;
@@ -337,7 +355,7 @@ body{
       font-size: 14px;
       position: relative;
       color: #fff;
-      padding: 0px 20px 0px;
+      padding: 0 20px 0;
       text-align: center;
     }
     a.info {
@@ -419,7 +437,7 @@ body{
   margin: 3em auto 4em auto;
   position: relative;
   font-family: "Ovo", sans-serif;
-  max-width: 945px;
+  max-width: 960px;
   > {
     header {
       display: -moz-flex;
@@ -440,7 +458,7 @@ body{
         padding: 2.75em 2em 1em 2em;
         h2 {
           font-weight: 900;
-          font-size: 1.5em;
+          font-size: 16px;
           a {
             color: #000000;
             text-decoration: none;
@@ -480,21 +498,22 @@ body{
         }
       }
     }
-    a.image.feature {
-      overflow: hidden;
+    /* Image Post */
+    .image {
+      border: 0;
+      position: relative;
       img {
-        -moz-transition: -moz-transform 0.2s ease-out;
-        -webkit-transition: -webkit-transform 0.2s ease-out;
-        -ms-transition: -ms-transform 0.2s ease-out;
-        transition: transform 0.2s ease-out;
+        display: block;
       }
-      &:hover img {
-        -moz-transform: scale(1.05);
-        -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-        transform: scale(1.05);
+      &.featured {
+        display: block;
+        margin: 0 auto 1em auto;
+        img {
+          margin: 0 auto 2em auto;
+        }
       }
     }
+
     .post_footer {
       display: -moz-flex;
       display: -webkit-flex;
@@ -628,38 +647,10 @@ $btn-colors: (
 }
 
 
-/* Image Post */
-.image {
-  border: 0;
-  position: relative;
-  img {
-    display: block;
-  }
-  &.featured {
-    display: block;
-    margin: 0 auto 1em auto;
-    img {
-      margin: 0 auto 2em auto;
-    }
-  }
-}
 
 
 /* Pagination */
 
-@mixin breakpoint ($value) {
-  @if $value == 'phone' {
-    @media only screen and (min-width: 120px) and (max-width: 767px) { @content; }
-  } @else if $value == 'tablet' {
-    @media only screen and (min-width: 768px) and (max-width: 1024px) { @content; }
-  } @else if $value == 'touch' {
-    @media only screen and (min-width: 120px) and (max-width: 1024px) { @content; }
-  } @else if $value == 'desktop' {
-    @media only screen and (min-width: 1025px) { @content; }
-  } @else {
-    @media only screen and (max-width: $value) { @content; }
-  }
-}
 
 // Colors
 $white: #fff;
